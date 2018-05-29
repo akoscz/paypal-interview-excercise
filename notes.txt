@@ -1,0 +1,33 @@
+1. Generate sample dataset
+	[
+//	    [ time, low, high, open, close, volume ],
+	    [ 1415398768, 0.32, 4.2, 0.35, 4.2, 12.3 ],
+	    ...
+	]
+
+	- vary the number of data points per second. 
+		[0..N]    make N variable.  Default 5.
+	- make total time for data set configurable 
+		Default to 300 sec (300sec / 60sec = 5min)
+
+	
+2. Set up Node JS webserver to serve up sample data 
+	- emit data point every 10ms
+
+3. Write Java client to connect to webserver through a websocket
+
+	- onMessageReceive(String data) is invoked when when server sends us new data item
+	- prase data: create data object responsible for parsing JSON string and eposing data elements
+	- process data: 
+		if multiple data points in 1 sec
+			keep highest
+			leep lowest
+			sum up the volume
+		if no data point within 1 sec 
+			use data from previous sec
+
+	- store data:
+		one data entry per second
+
+	- decide: shouldIBuyEther() is called from main method evey second
+		logic TBD
